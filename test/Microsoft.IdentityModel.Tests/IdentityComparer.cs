@@ -392,6 +392,8 @@ namespace Microsoft.IdentityModel.Tests
                 return AreWsFederationConfigurationsEqual(t1 as WsFederationConfiguration, t2 as WsFederationConfiguration, context);
             else if (t1 is WsFederationMessage)
                 return AreWsFederationMessagesEqual(t1 as WsFederationMessage, t2 as WsFederationMessage, context);
+            else if (t1 is SamlAction)
+                return AreSamlActionEqual(t1 as SamlAction, t2 as SamlAction, context);
             else if (t1 is SamlAssertion)
                 return AreSamlAssertionEqual(t1 as SamlAssertion, t2 as SamlAssertion, context);
             else if (t1 is SamlAdvice)
@@ -408,6 +410,15 @@ namespace Microsoft.IdentityModel.Tests
                 ContinueCheckingEquality(t1, t2, localContext);
                 return context.Merge(localContext);
             }
+        }
+
+        public static bool AreSamlActionEqual(SamlAction action1, SamlAction action2, CompareContext context)
+        {
+            var localContext = new CompareContext(context);
+            if (ContinueCheckingEquality(action1, action2, context))
+                CompareAllPublicProperties(action1, action2, localContext);
+
+            return context.Merge(localContext);
         }
 
         public static bool AreSamlAssertionEqual(SamlAssertion assertion1, SamlAssertion assertion2, CompareContext context)

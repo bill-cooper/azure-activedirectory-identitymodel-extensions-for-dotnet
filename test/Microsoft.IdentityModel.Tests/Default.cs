@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens.Saml;
 using Microsoft.IdentityModel.Xml;
 
 namespace Microsoft.IdentityModel.Tests
@@ -243,9 +244,24 @@ namespace Microsoft.IdentityModel.Tests
             get => "Default.RoleClaimType";
         }
 
+        public static SamlAction SamlAction
+        {
+            get => new SamlAction("Action", new Uri(SamlConstants.DefaultActionNamespace));
+        }
+
         public static string SamlAssertionID
         {
             get => "_b95759d0-73ae-4072-a140-567ade10a7ad";
+        }
+
+        public static SamlAudienceRestrictionCondition SamlAudienceRestrictionCondition
+        {
+            get => new SamlAudienceRestrictionCondition(Default.Audience);
+        }
+
+        public static SamlConditions SamlConditions
+        {
+            get => new SamlConditions(Default.NotBefore, Default.NotOnOrAfter, new List<SamlCondition> { Default.SamlAudienceRestrictionCondition });
         }
 
         public static string SamlConfirmationMethod

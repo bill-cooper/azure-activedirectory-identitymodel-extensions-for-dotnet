@@ -27,6 +27,7 @@
 
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.IdentityModel.Tokens.Saml;
 using Microsoft.IdentityModel.Xml;
 
 namespace Microsoft.IdentityModel.Tests
@@ -101,6 +102,90 @@ namespace Microsoft.IdentityModel.Tests
         public static string KeyInfoXml(string @namespace, XmlEement x509Data)
         {           
             return string.Format(KeyInfoTemplate, @namespace, XmlEement.Generate(x509Data));
+        }
+
+        public static string SamlActionTemplate
+        {
+            get => "<Action Namespace=\"{0}\" xmlns=\"{1}\">{2}</Action>";
+        }
+
+        public static string SamlActionXml(string @namespace, string actionNamespace, string action)
+        {
+            return string.Format(SamlActionTemplate, actionNamespace, @namespace, action);
+        }
+
+        public static string SamlAudienceTemplate
+        {
+            get => "<Audience xmlns=\"urn:oasis:names:tc:SAML:1.0:assertion\">{0}</Audience>";
+        }
+
+        public static string SamlAudienceXml(string audience)
+        {
+            return string.Format(SamlAudienceTemplate, audience);
+        }
+
+        public static string SamlAudienceRestrictionConditionTemplate
+        {
+            get => "<AudienceRestrictionCondition xmlns=\"urn:oasis:names:tc:SAML:1.0:assertion\">{0}</AudienceRestrictionCondition>";
+        }
+
+        public static string SamlAudienceRestrictionConditionXml(IEnumerable<string> audiences)
+        {
+            return GenerateCompositeXml(SamlAudienceRestrictionConditionTemplate, audiences);
+        }
+
+        public static string SamlConditionsTemplate
+        {
+            get => "<Conditions NotBefore=\"{0}\" NotOnOrAfter=\"{1}\" xmlns=\"urn:oasis:names:tc:SAML:1.0:assertion\">{2}</Conditions>";
+        }
+
+        public static string SamlConditions(IEnumerable<string> conditions)
+        {
+            return GenerateCompositeXml(SamlConditionsTemplate, conditions);
+        }
+
+        //public static string AddNamespace(string source, string @namespace)
+        //{
+        //    int index = source.IndexOf('>');
+        //    if (index < 0 || index > source.Length - 1)
+        //        return source;
+
+        //    string firstPart = source.Substring(0, index);
+        //    string lastPart = source.Substring(index, source.Length - index);
+        //    return firstPart + " xmlns:saml=\"urn:oasis:names:tc:SAML:1.0:assertion\"" + lastPart;
+        //}
+
+        public static string CleanupMultiNamespace(string source)
+        {
+            string[] separator = new string[]
+                {
+                    "xmlns=" + SamlConstants.Namespace,
+                    "xmlns:saml=" + SamlConstants.Namespace
+                };
+
+            string[] sources = source.Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
+            if (sources.Length > 2)
+            {
+                string result = source[0] + "xmlns=" + SamlConstants.Namespace + source[1];
+                for (int i = 2; i < sources.Length; ++i)
+                    result += sources[i];
+
+                return result;
+            }
+            else
+                return source;
+        }
+
+        public static string GenerateCompositeXml(string template, IEnumerable<string> elements)
+        {
+            string local = string.Empty;
+            foreach (var element in elements)
+            {
+                if (!string.IsNullOrEmpty(element))
+                    local = string.Concat(local, element);
+            }
+
+            return string.Format(template, local);
         }
 
         public static string Generate(KeyInfo keyInfo)

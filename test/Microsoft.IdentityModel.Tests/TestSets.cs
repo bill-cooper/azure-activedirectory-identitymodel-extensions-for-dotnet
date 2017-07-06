@@ -32,6 +32,26 @@ using Microsoft.IdentityModel.Xml;
 
 namespace Microsoft.IdentityModel.Tests
 {
+#region Saml
+    public class SamlActionTestSet
+    {
+        public string Xml { get; set; }
+        public SamlAction Action { get; set; }
+    }
+
+    //public class SamlAudienceRestrictionConditionTestSet
+    //{
+    //    public string Xml { get; set; }
+    //    public SamlAudienceRestrictionCondition audienceRestrictionCondition { get; set; }
+    //}
+
+    public class SamlConditionsTestSet
+    {
+        public string Xml { get; set; }
+        public SamlAudienceRestrictionCondition audienceRestrictionCondition { get; set; }
+    }
+#endregion
+
     public class KeyInfoTestSet
     {
         public string Xml { get; set; }
