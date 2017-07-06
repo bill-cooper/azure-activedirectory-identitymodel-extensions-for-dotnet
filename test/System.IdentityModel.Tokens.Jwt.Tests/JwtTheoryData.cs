@@ -42,7 +42,7 @@ namespace System.IdentityModel.Tokens.Jwt.Tests
 
         public SecurityTokenDescriptor TokenDescriptor { get; set; }
 
-        public ISecurityTokenValidator TokenHandler { get; set; } = new JwtSecurityTokenHandler();
+        public JwtSecurityTokenHandler TokenHandler { get; set; } = new JwtSecurityTokenHandler();
 
         public TokenType TokenType { get; set; }
 

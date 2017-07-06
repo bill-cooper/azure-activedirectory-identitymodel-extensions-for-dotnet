@@ -756,7 +756,6 @@ namespace System.IdentityModel.Tokens.Jwt.Tests
             }
         }
 
-
         #pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
         [Theory, MemberData("SignatureValidationTheoryData")]
 #pragma warning restore CS3016 // Arrays as attribute arguments is not CLS-compliant
@@ -766,7 +765,6 @@ namespace System.IdentityModel.Tokens.Jwt.Tests
 
             TestUtilities.ValidateToken(theoryData.Token, theoryData.ValidationParameters, theoryData.TokenHandler, theoryData.ExpectedException);
         }
-
 
         public static TheoryData<JwtTheoryData> SignatureValidationTheoryData
         {
@@ -807,7 +805,8 @@ namespace System.IdentityModel.Tokens.Jwt.Tests
                     },
                     new JwtTheoryData
                     {
-                        TestId = "Signature missing, just two parts",
+                        ExpectedException = ExpectedException.SecurityTokenInvalidSignatureException(substringExpected: "IDX10504:"),
+                        TestId = "Signature missing, required",
                         Token = JwtTestUtilities.GetJwtParts(EncodedJwts.Asymmetric_2048, "Parts-0-1"),
                         ValidationParameters = SignatureValidationParameters(KeyingMaterial.DefaultX509Key_Public_2048, null)
                     },
@@ -884,7 +883,7 @@ namespace System.IdentityModel.Tokens.Jwt.Tests
 
         private static TokenValidationParameters SignatureValidationParameters(SecurityKey signingKey, IEnumerable<SecurityKey> signingKeys, bool requireSignedTokens)
         {
-            return SignatureValidationParameters(signingKey, signingKeys, true, null);
+            return SignatureValidationParameters(signingKey, signingKeys, requireSignedTokens, null);
         }
 
         private static TokenValidationParameters SignatureValidationParameters(SecurityKey signingKey, IEnumerable<SecurityKey> signingKeys, bool requireSignedTokens, SignatureValidator signatureValidator)
