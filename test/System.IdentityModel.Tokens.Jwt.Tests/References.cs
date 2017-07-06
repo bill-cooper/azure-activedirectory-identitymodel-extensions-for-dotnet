@@ -28,6 +28,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.IdentityModel.Tests;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
@@ -486,6 +487,27 @@ namespace System.IdentityModel.Tokens.Jwt.Tests
         public static string JweTest2 =             @"eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRGVmYXVsdFN5bW1ldHJpY1NlY3VyaXR5S2V5XzI1NiIsInR5cCI6IkpXVCJ9..HksrbloZr9KUuYlpb3AbdA.aBtVk9Aad6qR81MVQ2NvZVQxEOD8x3_YC2qCGHKTFasjQPvhEbFhm_tZHHOOsRh1c7PG-atrHE6vcG0op8NRgZGpBJAzT8uwmRmJ3w-FuG_u4nfttg8qfD1OfA_4R82vRh6iXg7ZzviVInIa8ZCVntdWjoMN3hManuLdVIYFAWkG4J2Vy0tuGmjbamvbx9MSJWHO84um7Szz03dUai99aKPKAR43PeN3JlXvA95MXAJzY973B7OviFRsYi1MryX_6FUt_OVvJQMJsjUADQeyesgUNw3GP9xT4KI8NjBW8LJ4q2l3as0ztmzJKQWAnvSLSfJNgWpnQrFTX3qThylIqUESshMJjCHQKW6WO7NOFt2RrgR9v1omw-1S8cV1m4SKNnJOqmRF3ZijNJjGpzaPIEfDHzsE0MwU67_-f-uVAlTJzZnxax8d-7KEkd0KZCcO_ILL1xWKxDkdxGy51WcJwBOTcx0x1jpuAOwIi0wT9kTSDw7WpH3T0VpCnbjB1K8MQYrn1y9vkT3SG6IjRVrJnyo_pk8RuSnKRtFFNwAbE4JqwCQg5wthcJ9M1nO1aMgfIrnl7EEbbEaP3PnZTrrZ1UxiIXmk0xocIFDqHxGtMC-Rs6uJ67gUhAxMdi5iji5Ogrencfjat1azGH_89nRETDF0WjAs6EOTWpHB5jp0xx684kcYT4EbUp-ms0XxmcxV7oyUnkM9jxJBmbSEZoS5Dec6dO5sM6J4G5QI6U1_1edzi886mxZg25RA3AGCwjbXAW-zKUiPUP4Xu8TCRsMzpNocDV5dJ9cCb8zLpmtKclckcSVjd27zU3twGl65yS0uRdKradP99npd3rBmdeCgJyJwDJ2lAJpY804LQJSztt81caOnv-fOAI-7MEBQgVI3.EOlYXEsosb6b8tuRxMNQqA";
         public static string JweTest3 =             @"eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRGVmYXVsdFN5bW1ldHJpY1NlY3VyaXR5S2V5XzI1NiIsInR5cCI6IkpXVCJ9..1mLo9oZ_n0HuNKmS2SR6nw.KBkP2fD0SHWAZhzNzLx7DSaNlqwhd7aPUQ2oEEOVA0i99LGCuEBB2-mHmIOZgbkU5hGF7oCidVLM9ar8_Tek2I5-EdEDFCaT8wctBneSNiyXRJwUHOT7o_HO6f2rp4CfIAaqf_J8iM4UJtmC4eez2nxJc44oWlUvLWVS3Q73le6qiAW3ASpmJIPB47vn5YEa1AtR6I3A3X7f18yMSdtGKaLA6sUL-ZeRPAg0dNUiObMT9MqqtA_Jt61z8g-x3DSNKDvfUv6nIdo0L4KhFt7m5okXAedF-VxOUIryNEzMoYcEef78RX6Nf-5Eq71vzKIK99CFsL5uhfhk_RJl8-8wbIuJjuWByalnw7LW_0-7w7VIWtg24gHCq6mKvDdmVBgL-caWVDL2ILSR4MnJywqx11YzG74gsC-JvsjkEsZL3mH-27eiCsd_Xb2YXiGdMkmveJzlYwiQk5Uos-6kvNGWfzsxhkpGnCRbxBKjeCsj6lXTpHs_16MhACX2xdNmsLKF01waty-cQ5mufEgTsyi98CWCmRtZOs1wWLfmcGEL-j85p7ts1LLS-UPswgSJ3lFobriuSYt_oaBfcemz5emn1xe2VNme7-BvhS6i3axnY2Z6ULtLICI1AbQuSRT336m5WmWhGvu04XVkyilJRy9qUr7kKDR6Ux1PXrSpsd0GiDk3qLwmnv8N9FOROvfx3TtyXDLFuapbQwz1A37nl8Vg2kYoARqOAU73lslhbYLD_DiOIBmDREw85M2sBgTqZGCQMlFzTLxeiM0OZv-s2yMTv4fD7p_Tg1512bV1W3fe_Ja-4wmkwRXJmnF8K8m6oWnofBERieGtA_0HVcjQQh_t5Z2tc3XQEdCJxAqiiCGdmw-SX_9OMjWEjgLbvfqK_eVm.0DUduz5oR0ry2xRlaUnS7A";
         public static string JweTest4 =             @"eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRGVmYXVsdFN5bW1ldHJpY1NlY3VyaXR5S2V5XzI1NiIsInR5cCI6IkpXVCJ9..KgIILz-uysx_8sGUHw6Uig.Jzj6wn_rulSAuaADgUayVttM_h1CxzDeadddOaZ3sDzBu6Z0ffMQ9IKtjbpkLfzawFM0qBRjt1p75IUieTa7esZOWj5yoS8UQWg0e1n2pWpWEx9zpfeMsJjbwrsD4_tFxKRDjlAuDHYX2NehgT8CAiI2vI0dMgzIUR8VU6p7Srg_UpiZy_QnVcFG7hHhAK0R0affj6ViGhc7U_diMnpR5P3s8eG-GImB4iHMltlaUTcUqFDgSJBCmiQ0SK-lDTy9Q4Z3tGdhTZeofG9-fi68E234uznjdSj_Ql2t1E4nMOYc0kRcORlKJNQKUMLqW5ddwZwPqRd0HzccjLwnP20RqUbWntBidIdTTl94dT-1BrNGQMDMCTV7HQQxmf1JKbBN0DD0xkfOnO4UGEoHVhjOQhd1R1gAh7KtDNMJKPIdmGfMoy2SDJm_pPwmJ1ayw8rF4F5MoCDxUcKVfC25DAWOxVtnvvR4rJ9qkc9dWHr6sdFqZi7sRQIG9M7T2qqOktoZdoAEmduhii5_p5B456PsZlt8olRCsI8Xb_p4sR5clsEEMRatiUKvcXzNiVEK__17tGa2ALKGoutYb_8AasavGhz-sUjlLlHlCmaI9MA8s07MfhobBEepgNStymK1IBkl1wb1sidMmkNWSX4R18bA9J5tjAcUH0tsyyXzxix7DkKag-zl3pxxawS0NmjVIAnxXOFM_M8_DWQAySNO3atkHnMP__PneG3J-4vUoZhVeEQj66D-MCnCGzKi7YeEAjvLbPsQSeE6ptZ5lfiCmzmza0OkfeRnxRE8L1UA6-XydZ0Z6P1M7W-eV4OctVwIq1VNJeC461-D0ukouDWGBfVajW0k9Ws-U2l8Sp16TgEHkly1MnU7P7VkclldrIQ18yzd.j6_mHUzwEVeprRmNZMEY7A";
+
+        public static string JwsKidNullX5t
+        {
+            get
+            {
+                var jwtToken = new JwtSecurityToken
+                (
+                    Default.Issuer,
+                    Default.Audience,
+                    ClaimSets.Simple(Default.Issuer, Default.Issuer),
+                    DateTime.UtcNow + TimeSpan.FromHours(10),
+                    DateTime.UtcNow,
+                    KeyingMaterial.DefaultX509SigningCreds_2048_RsaSha2_Sha2
+                );
+
+                jwtToken.Header[JwtHeaderParameterNames.Kid] = null;
+                jwtToken.Header[JwtHeaderParameterNames.X5t] = KeyingMaterial.DefaultCert_2048.Thumbprint;
+
+                return (new JwtSecurityTokenHandler()).WriteToken(jwtToken);
+            }
+        }
     }
 
     public static class Saml2SignedTokens
