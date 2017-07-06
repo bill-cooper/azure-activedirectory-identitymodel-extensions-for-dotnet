@@ -36,6 +36,8 @@ namespace Microsoft.IdentityModel.Tokens.Saml.Tests
 
         public string Actor { get; set; }
 
+        public SamlAudienceRestrictionConditionTestSet AudienceRestrictionConditionTestSet { get; set; }
+
         public TokenValidationParameters ActorTokenValidationParameters { get; set; }
 
         public IEnumerable<string> Audiences { get; set; }

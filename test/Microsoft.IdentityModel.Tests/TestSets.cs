@@ -39,6 +39,12 @@ namespace Microsoft.IdentityModel.Tests
         public SamlAction Action { get; set; }
     }
 
+    public class SamlAudienceRestrictionConditionTestSet
+    {
+        public string Xml { get; set; }
+        public SamlAudienceRestrictionCondition SamlAudienceRestrictionCondition { get; set; }
+    }
+
     //public class SamlAudienceRestrictionConditionTestSet
     //{
     //    public string Xml { get; set; }

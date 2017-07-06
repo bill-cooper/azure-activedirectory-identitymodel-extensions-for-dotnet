@@ -563,6 +563,7 @@ namespace Microsoft.IdentityModel.Tests
         #endregion
 
         #region Saml
+#region SamlAction
         public static SamlActionTestSet SamlActionMissValue
         {
             get
@@ -610,6 +611,89 @@ namespace Microsoft.IdentityModel.Tests
                 };
             }
         }
+        #endregion
+
+        #region SamlAudienceRestrictionCondition
+        public static SamlAudienceRestrictionConditionTestSet SamlAudienceRestrictionConditionNoAudience
+        {
+            get
+            {
+                return new SamlAudienceRestrictionConditionTestSet
+                {
+                    SamlAudienceRestrictionCondition = Default.SamlAudienceRestrictionConditionSingleAudience,
+                    Xml = XmlGenerator.SamlAudienceRestrictionConditionXml(new string[] { })
+                };
+            }
+        }
+
+        public static SamlAudienceRestrictionConditionTestSet SamlAudienceRestrictionConditionEmptyAudience
+        {
+            get
+            {
+                string[] audiences = new string[]
+                    {
+                        XmlGenerator.SamlAudienceXml(string.Empty)
+                    };
+
+                return new SamlAudienceRestrictionConditionTestSet
+                {
+                    SamlAudienceRestrictionCondition = Default.SamlAudienceRestrictionConditionSingleAudience,
+                    Xml = XmlGenerator.SamlAudienceRestrictionConditionXml(audiences)
+                };
+            }
+        }
+
+        public static SamlAudienceRestrictionConditionTestSet SamlAudienceRestrictionConditionInvaidElement
+        {
+            get
+            {
+                return new SamlAudienceRestrictionConditionTestSet
+                {
+                    SamlAudienceRestrictionCondition = Default.SamlAudienceRestrictionConditionSingleAudience,
+                    Xml = XmlGenerator.SamlAudienceRestrictionConditionXml(new string[] { XmlGenerator.SamlActionXml(null, null, null) })
+                };
+            }
+        }
+
+        public static SamlAudienceRestrictionConditionTestSet SamlAudienceRestrictionConditionSingleAudience
+        {
+            get
+            {
+                string[] audiences = new string[]
+                    {
+                        XmlGenerator.SamlAudienceXml(Default.Audience)
+                    };
+
+                return new SamlAudienceRestrictionConditionTestSet
+                {
+                    SamlAudienceRestrictionCondition = Default.SamlAudienceRestrictionConditionSingleAudience,
+                    Xml = XmlGenerator.SamlAudienceRestrictionConditionXml(audiences)
+                };
+            }
+        }
+
+        public static SamlAudienceRestrictionConditionTestSet SamlAudienceRestrictionConditionMultiAudience
+        {
+            get
+            {
+                List<string> audiences = new List<string>();
+                foreach (var audience in Default.Audiences)
+                {
+                    audiences.Add(XmlGenerator.SamlAudienceXml(audience));
+                }
+
+                return new SamlAudienceRestrictionConditionTestSet
+                {
+                    SamlAudienceRestrictionCondition = Default.SamlAudienceRestrictionConditionMultiAudience,
+                    Xml = XmlGenerator.SamlAudienceRestrictionConditionXml(audiences)
+                };
+            }
+        }
+        #endregion
+
+        #region SamlConditions
+        #endregion
+
         #endregion
 
         #region Signature

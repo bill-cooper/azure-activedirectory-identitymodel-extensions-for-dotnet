@@ -254,14 +254,19 @@ namespace Microsoft.IdentityModel.Tests
             get => "_b95759d0-73ae-4072-a140-567ade10a7ad";
         }
 
-        public static SamlAudienceRestrictionCondition SamlAudienceRestrictionCondition
+        public static SamlAudienceRestrictionCondition SamlAudienceRestrictionConditionSingleAudience
         {
             get => new SamlAudienceRestrictionCondition(Default.Audience);
         }
 
+        public static SamlAudienceRestrictionCondition SamlAudienceRestrictionConditionMultiAudience
+        {
+            get => new SamlAudienceRestrictionCondition(Default.Audiences);
+        }
+
         public static SamlConditions SamlConditions
         {
-            get => new SamlConditions(Default.NotBefore, Default.NotOnOrAfter, new List<SamlCondition> { Default.SamlAudienceRestrictionCondition });
+            get => new SamlConditions(Default.NotBefore, Default.NotOnOrAfter, new List<SamlCondition> { Default.SamlAudienceRestrictionConditionSingleAudience });
         }
 
         public static string SamlConfirmationMethod

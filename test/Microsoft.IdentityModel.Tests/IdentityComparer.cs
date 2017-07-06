@@ -398,6 +398,8 @@ namespace Microsoft.IdentityModel.Tests
                 return AreSamlAssertionEqual(t1 as SamlAssertion, t2 as SamlAssertion, context);
             else if (t1 is SamlAdvice)
                 return AreSamlAdviceEqual(t1 as SamlAdvice, t2 as SamlAdvice, context);
+            else if (t1 is SamlAudienceRestrictionCondition)
+                return AreSamlAudienceRestrictionConditionEqual(t1 as SamlAudienceRestrictionCondition, t2 as SamlAudienceRestrictionCondition, context);
             else if (t1 is SamlConditions)
                 return AreSamlConditionsEqual(t1 as SamlConditions, t2 as SamlConditions, context);
             else if (t1 is SamlCondition)
@@ -435,6 +437,15 @@ namespace Microsoft.IdentityModel.Tests
             var localContext = new CompareContext(context);
             if (ContinueCheckingEquality(advice1, advice2, context))
                 CompareAllPublicProperties(advice1, advice2, localContext);
+
+            return context.Merge(localContext);
+        }
+
+        public static bool AreSamlAudienceRestrictionConditionEqual(SamlAudienceRestrictionCondition condition1, SamlAudienceRestrictionCondition condition2, CompareContext context)
+        {
+            var localContext = new CompareContext(context);
+            if (ContinueCheckingEquality(condition1, condition2, context))
+                CompareAllPublicProperties(condition1, condition2, localContext);
 
             return context.Merge(localContext);
         }

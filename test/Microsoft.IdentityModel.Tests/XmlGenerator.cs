@@ -139,7 +139,7 @@ namespace Microsoft.IdentityModel.Tests
             get => "<Conditions NotBefore=\"{0}\" NotOnOrAfter=\"{1}\" xmlns=\"urn:oasis:names:tc:SAML:1.0:assertion\">{2}</Conditions>";
         }
 
-        public static string SamlConditions(IEnumerable<string> conditions)
+        public static string SamlConditionsXml(IEnumerable<string> conditions)
         {
             return GenerateCompositeXml(SamlConditionsTemplate, conditions);
         }
@@ -155,7 +155,7 @@ namespace Microsoft.IdentityModel.Tests
         //    return firstPart + " xmlns:saml=\"urn:oasis:names:tc:SAML:1.0:assertion\"" + lastPart;
         //}
 
-        public static string CleanupMultiNamespace(string source)
+        public static string CleanupDuplicateNamespace(string source)
         {
             string[] separator = new string[]
                 {

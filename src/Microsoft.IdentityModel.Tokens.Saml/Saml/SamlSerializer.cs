@@ -94,8 +94,6 @@ namespace Microsoft.IdentityModel.Tokens.Saml
                 // @xsi:type
                 XmlUtil.ValidateXsiType(reader, SamlConstants.Types.ActionType, SamlConstants.Namespace);
 
-                reader.ReadStartElement();
-
                 // @Namespace - optional. If this element is absent, the default namespace is in effect.
                 // @attributes
                 var namespaceValue = reader.GetAttribute(SamlConstants.Attributes.Namespace);
@@ -107,6 +105,7 @@ namespace Microsoft.IdentityModel.Tokens.Saml
                 else
                     namespaceValue = SamlConstants.DefaultActionNamespace;
 
+                reader.ReadStartElement();
                 var action = reader.ReadContentAsString();
                 reader.MoveToContent();
                 reader.ReadEndElement();

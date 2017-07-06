@@ -29,12 +29,14 @@ using System;
 using System.IO;
 using System.Xml;
 using Microsoft.IdentityModel.Tests;
+using Microsoft.IdentityModel.Tokens.Saml;
 using Xunit;
 
 namespace Microsoft.IdentityModel.Tokens.Saml.Tests
 {
     public class SamlSerializerTests
     {
+        #region SamlAction
 #pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
         [Theory, MemberData("ActionReadFromTheoryData")]
 #pragma warning restore CS3016 // Arrays as attribute arguments is not CLS-compliant
@@ -67,7 +69,7 @@ namespace Microsoft.IdentityModel.Tokens.Saml.Tests
                 {
                     new SamlTheoryData
                     {
-                        ExpectedException = new ExpectedException(typeof(ArgumentNullException), "IDX10000:"),
+                        ExpectedException = new ExpectedException(typeof(SamlSecurityTokenReadException), "IDX11112:", typeof(ArgumentNullException)),
                         First = true,
                         SamlSerializer = new SamlSerializerPublic(),
                         ActionTestSet = ReferenceXml.SamlActionMissValue,
@@ -82,7 +84,7 @@ namespace Microsoft.IdentityModel.Tokens.Saml.Tests
                     },
                     new SamlTheoryData
                     {
-                        ExpectedException = new ExpectedException(typeof(SamlSecurityTokenException), "IDX11502:"),
+                        ExpectedException = new ExpectedException(typeof(SamlSecurityTokenReadException), "IDX11111:"),
                         SamlSerializer = new SamlSerializerPublic(),
                         ActionTestSet = ReferenceXml.SamlActionInvalidNamespace,
                         TestId = nameof(ReferenceXml.SamlActionInvalidNamespace)
@@ -97,6 +99,81 @@ namespace Microsoft.IdentityModel.Tokens.Saml.Tests
                 };
             }
         }
+        #endregion
+
+        #region SamlAudienceRestrictionCondition
+#pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
+        [Theory, MemberData("AudienceRestrictionConditionReadFromTheoryData")]
+#pragma warning restore CS3016 // Arrays as attribute arguments is not CLS-compliant
+        public void ReadAudienceRestrictionCondition(SamlTheoryData theoryData)
+        {
+            TestUtilities.WriteHeader($"{this}.ReadAudienceRestrictionCondition", theoryData);
+            var context = new CompareContext($"{this}.QueryStringTest, {theoryData.TestId}");
+            try
+            {
+                var sr = new StringReader(theoryData.AudienceRestrictionConditionTestSet.Xml);
+                var reader = XmlDictionaryReader.CreateDictionaryReader(XmlReader.Create(sr));
+                var audienceRestrictionCondition = (theoryData.SamlSerializer as SamlSerializerPublic).ReadAudienceRestrictionConditionPublic(reader);
+                theoryData.ExpectedException.ProcessNoException();
+
+                IdentityComparer.AreEqual(audienceRestrictionCondition, theoryData.AudienceRestrictionConditionTestSet.SamlAudienceRestrictionCondition, context);
+            }
+            catch (Exception ex)
+            {
+                theoryData.ExpectedException.ProcessException(ex);
+            }
+
+            TestUtilities.AssertFailIfErrors(context);
+        }
+
+        public static TheoryData<SamlTheoryData> AudienceRestrictionConditionReadFromTheoryData
+        {
+            get
+            {
+                return new TheoryData<SamlTheoryData>
+                {
+                    new SamlTheoryData
+                    {
+                        ExpectedException = new ExpectedException(typeof(SamlSecurityTokenReadException), "IDX11120:"),
+                        First = true,
+                        SamlSerializer = new SamlSerializerPublic(),
+                        AudienceRestrictionConditionTestSet = ReferenceXml.SamlAudienceRestrictionConditionNoAudience,
+                        TestId = nameof(ReferenceXml.SamlAudienceRestrictionConditionNoAudience)
+                    },
+                    new SamlTheoryData
+                    {
+                        ExpectedException = new ExpectedException(typeof(SamlSecurityTokenReadException), "IDX11125:"),
+                        First = true,
+                        SamlSerializer = new SamlSerializerPublic(),
+                        AudienceRestrictionConditionTestSet = ReferenceXml.SamlAudienceRestrictionConditionEmptyAudience,
+                        TestId = nameof(ReferenceXml.SamlAudienceRestrictionConditionEmptyAudience)
+                    },
+                    new SamlTheoryData
+                    {
+                        ExpectedException = new ExpectedException(typeof(SamlSecurityTokenReadException), "IDX11134:"),
+                        First = true,
+                        SamlSerializer = new SamlSerializerPublic(),
+                        AudienceRestrictionConditionTestSet = ReferenceXml.SamlAudienceRestrictionConditionInvaidElement,
+                        TestId = nameof(ReferenceXml.SamlAudienceRestrictionConditionInvaidElement)
+                    },
+                    new SamlTheoryData
+                    {
+                        ExpectedException = ExpectedException.NoExceptionExpected,
+                        SamlSerializer = new SamlSerializerPublic(),
+                        AudienceRestrictionConditionTestSet = ReferenceXml.SamlAudienceRestrictionConditionSingleAudience,
+                        TestId = nameof(ReferenceXml.SamlAudienceRestrictionConditionSingleAudience)
+                    },
+                    new SamlTheoryData
+                    {
+                        ExpectedException = ExpectedException.NoExceptionExpected,
+                        SamlSerializer = new SamlSerializerPublic(),
+                        AudienceRestrictionConditionTestSet = ReferenceXml.SamlAudienceRestrictionConditionMultiAudience,
+                        TestId = nameof(ReferenceXml.SamlAudienceRestrictionConditionMultiAudience)
+                    }
+                };
+            }
+        }
+        #endregion
 
         private class SamlSerializerPublic : SamlSerializer
         {
@@ -104,7 +181,11 @@ namespace Microsoft.IdentityModel.Tokens.Saml.Tests
             {
                 return base.ReadAction(reader);
             }
-        }
 
+            public SamlAudienceRestrictionCondition ReadAudienceRestrictionConditionPublic(XmlDictionaryReader reader)
+            {
+                return base.ReadAudienceRestrictionCondition(reader);
+            }
+        }
     }
 }
